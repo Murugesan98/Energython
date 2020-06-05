@@ -1,0 +1,126 @@
+service:
+  name: energython-poc
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  TableName_user_ev: user_account_ev
+  TableName_user_ev_cards: user_account_ev_cardDetails
+  TableName_user_cp : user_account_cp
+  TableName_cp_detail : cp_details
+  TableName_usage_detail : Bill_details
+
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: Energython-Poc
+  #apiGateway:
+   # minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    TableName_user_ev: user_account_ev
+    TableName_user_ev_cards: user_account_ev_cardDetails
+    TableName_user_cp : user_account_cp
+    TableName_cp_detail : cp_details
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+           - dynamodb:*
+      Resource: '*' 
+
+functions:
+  
+  ev-user-registration:
+    handler: ev-user-handler.graphqlHandler
+    events:
+      - http:
+           method: post
+           path  : evowner
+           cors  : true
+  cp-user-registration:
+    handler: cp-user-handler.graphqlHandler
+    events:
+      - http:
+           method: post
+           path  : cpowner
+           cors  : true
+  cp-search:
+    handler: cp-search-handler.graphqlHandler
+    events:
+      - http:
+           method: post
+           path  : request-page
+           cors  : true
+  Bill-Details:
+    handler: bill-handler.graphqlHandler
+    events:
+      - http:
+           method: post
+           path  : payment
+           cors  : true         
+resources:
+    Resources:
+          MyDynamoDbTable1:
+                Type: AWS::DynamoDB::Table
+                Properties:
+                     TableName: ${self:custom.TableName_user_ev}
+                     AttributeDefinitions:
+                         - AttributeName: ID
+                           AttributeType: S
+                     KeySchema:
+                          -  AttributeName: ID
+                             KeyType: HASH
+                     BillingMode: PAY_PER_REQUEST
+          MyDynamoDbTable2:
+                Type: AWS::DynamoDB::Table
+                Properties:
+                     TableName: ${self:custom.TableName_user_ev_cards}
+                     AttributeDefinitions:
+                         - AttributeName: ID
+                           AttributeType: S
+                     KeySchema:
+                          -  AttributeName: ID
+                             KeyType: HASH
+                     BillingMode: PAY_PER_REQUEST
+          MyDynamoDbTable3:
+                Type: AWS::DynamoDB::Table
+                Properties:
+                     TableName: ${self:custom.TableName_user_cp}
+                     AttributeDefinitions:
+                         - AttributeName: ID
+                           AttributeType: S
+                     KeySchema:
+                          -  AttributeName: ID
+                             KeyType: HASH
+                     BillingMode: PAY_PER_REQUEST
+          MyDynamoDbTable4:
+                Type: AWS::DynamoDB::Table
+                Properties:
+                     TableName: ${self:custom.TableName_cp_detail}
+                     AttributeDefinitions:
+                         - AttributeName: ID
+                           AttributeType: S
+                     KeySchema:
+                          -  AttributeName: ID
+                             KeyType: HASH
+                     BillingMode: PAY_PER_REQUEST
+          MyDynamoDbTable5:
+                Type: AWS::DynamoDB::Table
+                Properties:
+                     TableName: ${self:custom.TableName_usage_detail}
+                     AttributeDefinitions:
+                         - AttributeName: ID
+                           AttributeType: S
+                     KeySchema:
+                          -  AttributeName: ID
+                             KeyType: HASH
+                     BillingMode: PAY_PER_REQUEST
