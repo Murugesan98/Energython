@@ -1,0 +1,64 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type EvUserType {
+  Id: String!
+  user_name: String!
+  mobile_number: String!
+  mail: String!
+  new_password: String!
+  confirm_password: String!
+  name_on_card: String!
+  card_no: String!
+  expiry_date: String!
+}
+
+type CpUserType {
+  Id: String!
+  username: String!
+  mobile: String!
+  mail: String!
+  new_password: String!
+  confirm_password: String!
+  connector_type: [String!]!
+  current_type: String!
+  availability: String!
+  price: String!
+  amentities: [String!]!
+}
+
+type Query {
+  check: CpUserType!
+}
+
+type Mutation {
+  addEvOwnerRegistration(input: AddEvUserType!): EvUserType!
+  addCpOwnerRegistration(input: AddCpUserType!): CpUserType!
+}
+
+input AddEvUserType {
+  Id: String!
+  user_name: String!
+  mobile_number: String!
+  mail: String!
+  new_password: String!
+  confirm_password: String!
+  name_on_card: String!
+  card_no: String!
+  expiry_date: String!
+}
+
+input AddCpUserType {
+  Id: String!
+  username: String!
+  mobile: String!
+  mail: String!
+  new_password: String!
+  confirm_password: String!
+  connector_type: [String!]!
+  current_type: String!
+  availability: String!
+  price: String!
+  amentities: [String!]!
+}
