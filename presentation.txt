@@ -1,0 +1,136 @@
+Hi Good morning to everyone. As backend is considered i have used AWS(lambda), GraphQL and Dynamodb for database. 
+I think may are new to GraphQL so i will explain in detail about GraphQL
+before we get in to the actual code. GraphQL is an open source server-side technology which was developed by Facebook to optimize RESTful API calls. 
+
+First lets see Why we use GraphQL?
+  RESTful APIs follow clear and well-structured resource-oriented approach. However, when the data gets more complex, the routes get longer. 
+Sometimes it is not possible to fetch data with a single request. 
+This is where GraphQL comes handy. GraphQL structures data in the form of a graph with its powerful query syntax for traversing, retrieving, and modifying data.
+ I have mentioned that graphql structures data in the form of graph.  so let see what is meant by graph first. In mathematics, and more specifically in graph theory, 
+a graph is a structure amounting to a set of objects in which some pairs of the objects are in some sense "related". The objects correspond to mathematical abstractions
+ called vertices and each of the related pairs of vertices is called an edge.
+As you see in the picture the circle is called vertices and connection between them is called edges.
+ As we see the examples you can understand more about graph and graphql. 
+This type of relations are pratically used in social media networks like facebook, linked in etc. 
+A person is a vertices and their relation to the other person is called edges. 
+
+we can send a GraphQL query to our API and get exactly what you need. GraphQL queries always return predictable results. 
+Applications using GraphQL are fast and stable. Unlike Restful services, these applications can restrict data that should be fetched from the server.
+
+The following example will help you understand this better 
+
+Let us consider a business object Books with the attributes id, Name, genre and author. Suppose a mobile application needs to fetch only the Name and id. 
+If we design a REST endpoint like books it will end up fetching data for all the fields
+ for a books object. This means, data is over fetched by the RESTful service. This problem can be solved by using GraphQL.
+ I have created a small project using graphql and rest so that you can follow me.
+
+***************************show books Api ******************************
+
+I have created two Rest objects books and author object. The book object consist of fields like book id, author id, genre of the book and name of the book.
+ And the author object consists of id,name and age of the author. when i hit the end point books the details of the books can be viwed and same for authors. 
+But it requires two api calls for getting specific author details. But when i use use graphql we can get both book and author details in a single fetch. 
+So it reduces the calls and as i mentioned before we can restrict the data. 
+
+I think after the example you can get what i said. 
+
+GraphQL APIs fetch all the data your application need in a single request. Applications using GraphQL can be quick 
+even on slow mobile network connections.
+
+I have mentioned before that graphql structures data in the form of graph. so let see what is meant by graph first.
+ In mathematics, and more specifically in graph theory, a graph is a structure amounting to a set of objects in which some pairs of the objects are in some sense "related".
+ The objects correspond to mathematical abstractions called vertices and each of the related pairs of vertices is called an edge.
+As you see in the picture the circle is called vertices and connection between them is called edges. As we see the examples you can understand more about graph structure.
+ ######## PPT books and authors %%%%%%%. This type of relations are pratically used in social media networks like facebook, linked in etc.
+ A person is a vertices and their relation to the other person like place, school, college are called edges. 
+
+
+GraphQL is a specification that describes the behavior of a GraphQL server. It is a set of guidelines on how requests and responses should be handled like 
+supported protocols, format of the data that can be accepted by the server, format of the response returned by the server, etc. 
+The request made by a client to the GraphQL server is called a Query.
+
+GraphQl has 3 server side components 
+
+Schema
+
+A GraphQL schema is at the center of any GraphQL server implementation and describes the functionality available to the clients which connect to it.
+
+Query
+
+A GraphQL query is the client application request to retrieve data from database or legacy API's.
+
+
+Mutations are operations sent to the server to create, update or delete data. These are analogous to the PUT, POST, PATCH and DELETE verbs to call REST-based APIs.
+
+Mutation is one of the root-level data-types in GraphQL. The Query type defines the entry-points for data-fetching operations whereas the Mutation type specifies the 
+entry points for data-manipulation operations.
+
+	
+Resolver
+
+Resolvers provide the instructions for turning a GraphQL operation into data. They resolve the query to data by defining resolver functions.
+
+There are two types of approach in Graphql they are code first and schema first. 
+In the code-first approach, we start by coding the resolvers, the schema will be generated automatically in run time . Thus, we still have a schema,
+ but instead of being manually created, it is created through running a script. This approach may also be called resolver-firstor or code-first.
+I have used code first approach in my project.
+
+### show schema ### This us called schema and it resembles same like model class. 
+
+now lets see the code authors/resolvers  --> @query is used to retrive the data from the database or api we can consider it similar to  get method in rest inside the 
+query annotation there is a field called author it determines the return type of author schema. ##show the service class##
+
+
+
+
+Where GraphQL Has the Upper Hand Over REST APIs
+
+When using a REST API to fetch information, as we seen in the demo we will always get back a complete dataset. For example, if you wanted to request information 
+from two objects namely books and authors
+we would need to perform two REST API requests. The advantage of REST APIs is its simplicity—you have one endpoint that does one task,
+ so it’s easy to understand and manipulate. In other words, if you have X endpoint, it provides X data.
+
+Conversely, if you wanted to gather some information from a specific endpoint, you couldn’t limit the fields that the REST API returns;
+ we will always get a complete data set. This phenomenon is referred to as over fetching. GraphQL uses its query language to tailor 
+the request to exactly what you need, from multiple objects down to specific fields within each entity. 
+GraphQL would take X endpoint, and it can do a lot with that information, but we have to tell it what we want first in query.
+
+In essence, GraphQL is extremely powerful, once we know how to use it. 
+Because we are only fetching the data that we require, we limit the amount of processing required. 
+
+
+Where REST APIs Beat Out GraphQL
+
+REST has become the industry standard for companies deploying APIs. REST endpoints are mature and have been around for a while.
+
+Similarly, API analytics are easier to obtain for REST, due to the limited amount of tooling for GraphQL. 
+There is a promise of more insights in the near future, once tools that support GraphQL are made more widely available. 
+
+
+
+Orginal code ***********************************************************
+
+Now we can go to the backend code of the energython Project. As i stated before i have implemented using serverless, dynamodb. Dynamodb is a no-sql database. 
+It does not supports joins operations as in relational database like sql.
+
+In the project repository, a ####template. yml file that stores the definition for our application's runtime stack. we can use this file to add or 
+modify project resources that are not toolchain resources, such as AWS resources used for notifications, database support, monitoring, and tracing.
+
+There are many frameworks available to implement GraphQl like nestjs, TypeGraphQL. I have used nestjs here it looks similar to the angular architecture.
+
+I have created four components. Cp registration component is used to register the Charge point user. For encrypting the password i used AES algorithm. 
+And i have saved in dynamodb.
+
+mutation is similar like post method in rest.
+
+
+Ev registration working is same as cp registration. In Bill component it is used to calculate the bill of the user. 
+In search component i have used filter expression to filter the data as per our requirements.
+
+And finally status component is used to accept or reject the incoming request of the user.  
+
+
+ Thankyou .
+
+
+
+
